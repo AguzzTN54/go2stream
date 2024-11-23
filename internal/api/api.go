@@ -46,13 +46,13 @@ func Init() {
 	basePath = cfg.Mod.BasePath
 	log = app.GetLogger("api")
 
-	initStatic(cfg.Mod.StaticDir)
+	// initStatic(cfg.Mod.StaticDir)
 
-	HandleFunc("api", apiHandler)
-	HandleFunc("api/config", configHandler)
-	HandleFunc("api/exit", exitHandler)
-	HandleFunc("api/restart", restartHandler)
-	HandleFunc("api/log", logHandler)
+	// HandleFunc("api", apiHandler)
+	// HandleFunc("api/config", configHandler)
+	// HandleFunc("api/exit", exitHandler)
+	// HandleFunc("api/restart", restartHandler)
+	// HandleFunc("api/log", logHandler)
 
 	Handler = http.DefaultServeMux // 4th
 
