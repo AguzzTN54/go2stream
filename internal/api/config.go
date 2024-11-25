@@ -1,6 +1,7 @@
 package api
 
 import (
+	"encoding/json"
 	"io"
 	"net/http"
 	"os"
@@ -52,6 +53,44 @@ func configHandler(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 	}
+}
+
+func streamlistHandle(w http.ResponseWriter, r *http.Request) {
+	if app.ConfigPath == "" {
+		http.Error(w, "", http.StatusGone)
+		return
+	}
+
+	switch r.Method {
+		case "GET":
+			data, err := os.ReadFile(app.ConfigPath)
+			if err != nil {
+				http.Error(w, "", http.StatusNotFound)
+				return
+			}
+
+			var parsedData map[string]map[string]string
+			err = yaml.Unmarshal(data, &parsedData)
+			if err != nil {
+				http.Error(w, "", http.StatusInternalServerError)
+				return
+			}
+			
+			// Access the "streams" section and collect the keys
+			streams := parsedData["streams"]
+			keys := make([]string, 0, len(streams))
+			for key := range streams {
+				keys = append(keys, key)
+			}
+
+			// Convert the keys to JSON
+			jsonData, err := json.Marshal(keys)
+			if err != nil {
+				http.Error(w, "", http.StatusInternalServerError)
+			}
+			
+			Response(w, jsonData, "application/json")
+	}			
 }
 
 func mergeYAML(file1 string, yaml2 []byte) ([]byte, error) {
