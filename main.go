@@ -6,6 +6,7 @@ import (
 	"github.com/AlexxIT/go2rtc/internal/app"
 	"github.com/AlexxIT/go2rtc/internal/bubble"
 	"github.com/AlexxIT/go2rtc/internal/debug"
+	"github.com/AlexxIT/go2rtc/internal/doorbird"
 	"github.com/AlexxIT/go2rtc/internal/dvrip"
 	"github.com/AlexxIT/go2rtc/internal/echo"
 	"github.com/AlexxIT/go2rtc/internal/exec"
@@ -30,13 +31,14 @@ import (
 	"github.com/AlexxIT/go2rtc/internal/srtp"
 	"github.com/AlexxIT/go2rtc/internal/streams"
 	"github.com/AlexxIT/go2rtc/internal/tapo"
+	"github.com/AlexxIT/go2rtc/internal/v4l2"
 	"github.com/AlexxIT/go2rtc/internal/webrtc"
 	"github.com/AlexxIT/go2rtc/internal/webtorrent"
 	"github.com/AlexxIT/go2rtc/pkg/shell"
 )
 
 func main() {
-	app.Version = "1.9.7"
+	app.Version = "1.9.8"
 
 	// 1. Core modules: app, api/ws, streams
 
@@ -82,6 +84,8 @@ func main() {
 	bubble.Init()   // bubble source
 	expr.Init()     // expr source
 	gopro.Init()    // gopro source
+	doorbird.Init() // doorbird source
+	v4l2.Init()     // v4l2 source
 
 	// 6. Helper modules
 
