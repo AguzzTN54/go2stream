@@ -10,7 +10,7 @@ import (
 	"github.com/AlexxIT/go2rtc/internal/streams"
 	"github.com/AlexxIT/go2rtc/pkg/core"
 	"github.com/AlexxIT/go2rtc/pkg/webrtc"
-	pion "github.com/pion/webrtc/v3"
+	pion "github.com/pion/webrtc/v4"
 	"github.com/rs/zerolog"
 )
 
@@ -24,7 +24,7 @@ func Init() {
 		} `yaml:"webrtc"`
 	}
 
-	cfg.Mod.Listen = ":8555/tcp"
+	cfg.Mod.Listen = ":8555"
 	cfg.Mod.IceServers = []pion.ICEServer{
 		{URLs: []string{"stun:stun.l.google.com:19302"}},
 	}
