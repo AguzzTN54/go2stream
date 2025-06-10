@@ -84,6 +84,8 @@ func handlerStream(w http.ResponseWriter, r *http.Request) {
 		sessionsMu.Unlock()
 
 		stream.RemoveConsumer(cons)
+		
+		api.GoVisit(r)
 	})
 
 	sessionsMu.Lock()

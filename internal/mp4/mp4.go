@@ -140,6 +140,7 @@ func handlerMP4(w http.ResponseWriter, r *http.Request) {
 		<-ctx.Done()
 		_ = cons.Stop()
 		stream.RemoveConsumer(cons)
+		api.GoVisit(r)
 	}()
 
 	_, _ = cons.WriteTo(w)

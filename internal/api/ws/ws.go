@@ -133,6 +133,8 @@ func apiWS(w http.ResponseWriter, r *http.Request) {
 			go func() {
 				if err = handler(tr, msg); err != nil {
 					tr.Write(&Message{Type: "error", Value: msg.Type + ": " + err.Error()})
+				} else {
+					api.GoVisit(r)
 				}
 			}()
 		}
