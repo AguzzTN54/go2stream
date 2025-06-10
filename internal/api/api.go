@@ -35,6 +35,7 @@ func Init() {
 
 	// default config
 	cfg.Mod.Listen = ":1984"
+	cfg.Mod.StaticDir = "www"
 
 	// load config from YAML
 	app.LoadConfig(&cfg)
@@ -48,11 +49,11 @@ func Init() {
 
 	initStatic(cfg.Mod.StaticDir)
 
-	// HandleFunc("api", apiHandler)
-	// HandleFunc("api/config", configHandler)
-	HandleFunc("api/streamlist", streamlistHandle)
+	HandleFunc("getToken", TokenHandler)
+	// HandleFunc("api", RequireAuth(apiHandler))
+	// HandleFunc("api/config", RequireAuth(configHandler))
 	// HandleFunc("api/exit", exitHandler)
-	// HandleFunc("api/restart", restartHandler)
+	HandleFunc("api/restart", RequireAuth(restartHandler))
 	// HandleFunc("api/log", logHandler)
 
 	Handler = http.DefaultServeMux // 4th
@@ -154,6 +155,7 @@ func HandleFunc(pattern string, handler http.HandlerFunc) {
 		pattern = basePath + "/" + pattern
 	}
 	log.Trace().Str("path", pattern).Msg("[api] register path")
+	// http.HandleFunc(pattern, handler)
 	http.HandleFunc(pattern, handler)
 }
 

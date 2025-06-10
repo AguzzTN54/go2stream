@@ -120,10 +120,10 @@ producers:
 
 func (s *Stream) MarshalJSON() ([]byte, error) {
 	var info = struct {
-		Producers []*Producer     `json:"producers"`
+		// Producers []*Producer     `json:"producers"`
 		Consumers []core.Consumer `json:"consumers"`
 	}{
-		Producers: s.producers,
+		// Producers: s.producers,
 		Consumers: s.consumers,
 	}
 	return json.Marshal(info)

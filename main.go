@@ -40,10 +40,14 @@ import (
 	"github.com/AlexxIT/go2rtc/internal/webtorrent"
 	"github.com/AlexxIT/go2rtc/internal/wyoming"
 	"github.com/AlexxIT/go2rtc/pkg/shell"
+	"github.com/joho/godotenv"
 )
 
 func main() {
 	app.Version = "1.9.9"
+
+	
+	godotenv.Load() // load Environtment variables
 
 	// 1. Core modules: app, api/ws, streams
 

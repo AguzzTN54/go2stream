@@ -26,8 +26,9 @@ func Init() {
 		streams[name] = NewStream(item)
 	}
 
-	api.HandleFunc("api/streams", apiStreams)
+	api.HandleFunc("api/streams", api.RequireAuth(apiStreams))
 	api.HandleFunc("api/streams.dot", apiStreamsDOT)
+	api.HandleFunc("api/streamlist", api.RequireAuth(apiStreamList))
 
 	if cfg.Publish == nil {
 		return

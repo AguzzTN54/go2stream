@@ -122,3 +122,25 @@ func apiStreamsDOT(w http.ResponseWriter, r *http.Request) {
 
 	api.Response(w, dot, "text/vnd.graphviz")
 }
+
+
+func apiStreamList(w http.ResponseWriter, r *http.Request) {
+	if r.Method != http.MethodPost {
+		http.Error(w, "Method is not allowed!", http.StatusMethodNotAllowed)
+		return
+	}
+
+	if r.Method == "POST" {
+		keys := make([]string, 0, len(streams))
+		for k := range streams {
+			keys = append(keys, k)
+		}
+
+		result := map[string]interface{}{
+			"streamlist": keys,
+		}
+
+		api.ResponseJSON(w, result)
+		return
+	}
+}
