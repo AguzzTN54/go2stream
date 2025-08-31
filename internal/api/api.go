@@ -50,7 +50,7 @@ func Init() {
 	initStatic(cfg.Mod.StaticDir)
 
 	HandleFunc("getToken", TokenHandler)
-	// HandleFunc("api", RequireAuth(apiHandler))
+	HandleFunc("api", RequireAuth(apiHandler))
 	// HandleFunc("api/config", RequireAuth(configHandler))
 	// HandleFunc("api/exit", exitHandler)
 	HandleFunc("api/restart", RequireAuth(restartHandler))
